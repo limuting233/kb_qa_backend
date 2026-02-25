@@ -7,7 +7,7 @@
 
 # 项目IDE目录
 .idea/
-
+.vscode/
 
 # 缓存目录
 __pycache__/
