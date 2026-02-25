@@ -1,0 +1,18 @@
+
+
+
+# 环境变量文件
+.env.dev
+
+
+# 项目IDE目录
+.idea/
+
+
+# 缓存目录
+__pycache__/
+
+
+# alembic 数据库迁移目录
+alembic/
+alembic.ini
