@@ -1,8 +1,11 @@
 import uuid
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+# _CN_TZ = ZoneInfo("Asia/Shanghai")
 
 
 class Base(DeclarativeBase):
@@ -13,7 +16,7 @@ class Base(DeclarativeBase):
     __abstract__ = True
 
     # 主键：UUID字符串
-    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: uuid.uuid4().hex, comment="主键")
+    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=lambda: uuid.uuid4().hex, comment="主键")
 
     # 创建时间：插入时由数据库自动写入
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False,

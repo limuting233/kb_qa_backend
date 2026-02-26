@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-from app.api.v1.endpoints import chat, docs
+from app.api.v1.endpoints import chat, document, knowledge_base
 
 api_router = APIRouter()
 
 api_router.include_router(chat.router, prefix="/chat", tags=["chat"])
-api_router.include_router(docs.router, prefix="/docs", tags=["docs"])
+api_router.include_router(document.router, prefix="/document", tags=["document"])
+api_router.include_router(knowledge_base.router, prefix="/kb", tags=["knowledge_base"])

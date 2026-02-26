@@ -4,7 +4,6 @@ from app.core.config import settings
 
 _POSTGRESQL_URL = f"postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}"
 
-
 # 创建异步数据库引擎
 async_engine: AsyncEngine = create_async_engine(
     url=_POSTGRESQL_URL,
@@ -18,6 +17,7 @@ async_engine: AsyncEngine = create_async_engine(
     connect_args={
         "server_settings": {
             "application_name": settings.APP_NAME,
+            "timezone": "Asia/Shanghai"
         }
     },
 )

@@ -1,10 +1,11 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from app.api.v1 import router
 from app.core.config import settings
+from app.infra.storage.oss_client import create_aliyun_oss_client
 
 
-# from app.core import config
 
 
 def create_app() -> FastAPI:
@@ -14,6 +15,11 @@ def create_app() -> FastAPI:
     """
     app = FastAPI(title=settings.APP_NAME)
     app.include_router(router.api_router, prefix="/api/v1")
+
+    load_dotenv(dotenv_path=settings.PROJECT_ROOT / f".env.{settings.ENV}", override=True)
+
+
+    create_aliyun_oss_client()  # 创建oss客户端
 
     return app
 
