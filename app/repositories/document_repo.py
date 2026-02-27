@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -26,3 +28,11 @@ class DocumentRepo:
 
         res = await self.db.execute(stmt)
         return res.scalar_one_or_none()
+
+    async def add(self, docs: List[Document]):
+        if not docs:
+            return None
+        self.db.add_all(docs)
+        await self.db.flush()
+
+        # return docs

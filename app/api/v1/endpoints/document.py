@@ -5,6 +5,7 @@ from fastapi import APIRouter, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 
 from app.api.deps import DBSessionDep, UserIdDep
+from app.schemas.result import Result
 # from app.schemas.document import UploadDocsBatchRequest
 from app.services.document_service import DocumentService
 
@@ -28,4 +29,5 @@ async def upload_docs_batch(kb_id: Annotated[str, Form(...)], docs: Annotated[Li
     """
     doc_service = DocumentService(db)
 
-    await doc_service.upload_docs_batch(user_id, kb_id, docs)
+    resp_data = await doc_service.upload_docs_batch(user_id, kb_id, docs)
+    return Result[dict].success(data=resp_data)

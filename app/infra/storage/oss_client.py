@@ -5,6 +5,8 @@ from alibabacloud_oss_v2 import Client
 from dotenv import load_dotenv
 
 from app.core.config import settings
+from app.core.exceptions import StorageUploadException
+from loguru import logger
 
 client: Client | None = None
 
@@ -31,7 +33,7 @@ def create_aliyun_oss_client():
     # return None
 
 
-def upload_file_to_aliyun_oss(file, key:str):
+def upload_file_to_aliyun_oss(file, key: str):
     # 执行上传对象的请求，指定存储空间名称、对象名称和数据内容
     global client
     if client is None:
@@ -42,12 +44,14 @@ def upload_file_to_aliyun_oss(file, key:str):
         key=key,
         body=file,
     ))
+    # # 输出请求的结果状态码、请求ID、内容MD5、ETag、CRC64校验码和版本ID，用于检查请求是否成功
+    # print(f'status code: {result.status_code},'
+    #       f' request id: {result.request_id},'
+    #       f' content md5: {result.content_md5},'
+    #       f' etag: {result.etag},'
+    #       f' hash crc64: {result.hash_crc64},'
+    #       f' version id: {result.version_id},'
+    #       )
 
-    # 输出请求的结果状态码、请求ID、内容MD5、ETag、CRC64校验码和版本ID，用于检查请求是否成功
-    print(f'status code: {result.status_code},'
-          f' request id: {result.request_id},'
-          f' content md5: {result.content_md5},'
-          f' etag: {result.etag},'
-          f' hash crc64: {result.hash_crc64},'
-          f' version id: {result.version_id},'
-          )
+    if result.status_code != 200:
+        raise StorageUploadException(f"文件上传阿里云oss失败,key={key}")

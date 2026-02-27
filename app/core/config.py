@@ -21,6 +21,10 @@ class Settings(BaseSettings):
     # 目前运行环境
     ENV: str = os.getenv("ENV", "dev")
 
+    # 日志配置
+    LOG_LEVEL: str  # 日志级别
+    LOG_FORMAT: str = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"  # 日志格式
+
     # PostgreSQL数据库配置
     POSTGRES_HOST: str
     POSTGRES_PORT: int

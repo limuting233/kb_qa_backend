@@ -32,13 +32,14 @@ async def create_kb(request: CreateKBRequest, user_id: UserIdDep, db: DBSessionD
     kb_service = KnowledgeBaseService(db=db)
 
     # 创建知识库记录（内部执行参数处理、重复校验、持久化等）。
-    kb = await kb_service.create_kb(request.name, user_id)
+    await kb_service.create_kb(request.name, user_id)
+
     # print(kb)
 
     # ORM 对象转字典，便于统一响应序列化。
-    resp_data = kb.as_dict()
+    # resp_data = kb.as_dict()
 
     # print(resp_data)
 
     # 返回标准成功响应。
-    return Result[dict].success(data=resp_data)
+    return Result.success()

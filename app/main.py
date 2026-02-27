@@ -3,9 +3,10 @@ from fastapi import FastAPI
 
 from app.api.v1 import router
 from app.core.config import settings
+from app.core.handlers.exception_handlers import register_exception_handlers
+from app.core.logging import setup_logging
 from app.infra.storage.oss_client import create_aliyun_oss_client
-
-
+from loguru import logger
 
 
 def create_app() -> FastAPI:
@@ -18,6 +19,8 @@ def create_app() -> FastAPI:
 
     load_dotenv(dotenv_path=settings.PROJECT_ROOT / f".env.{settings.ENV}", override=True)
 
+    setup_logging()
+    register_exception_handlers(app)
 
     create_aliyun_oss_client()  # 创建oss客户端
 

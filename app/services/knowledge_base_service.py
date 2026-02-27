@@ -14,7 +14,7 @@ class KnowledgeBaseService:
         self.db = db
         self.repo = KnowledgeBaseRepo(db=db)
 
-    async def create_kb(self, kb_name: str, user_id: str) -> KnowledgeBase:
+    async def create_kb(self, kb_name: str, user_id: str) :
         """
         创建知识库。
 
@@ -39,7 +39,7 @@ class KnowledgeBaseService:
             await self.repo.add(kb)
             await self.db.commit()
 
-            return kb
+
         except IntegrityError:
             await self.db.rollback()
             raise HTTPException(status_code=409, detail="数据冲突")
