@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from app.core.exceptions import BusinessException
+from app.core.exceptions import BizException
 from loguru import logger
 
 
@@ -12,11 +12,11 @@ def register_exception_handlers(app: FastAPI):
     :return:
     """
     logger.info("正在注册异常处理器 ...")
-    app.add_exception_handler(BusinessException, handle_business_exception)
+    app.add_exception_handler(BizException, handle_business_exception)
     logger.info("异常处理器注册完成")
 
 
-def handle_business_exception(request: Request, exception: BusinessException) -> JSONResponse:
+def handle_business_exception(request: Request, exception: BizException) -> JSONResponse:
     """
     处理业务异常
     :param request:
@@ -24,7 +24,7 @@ def handle_business_exception(request: Request, exception: BusinessException) ->
     :return:
     """
     logger.error(
-        f"[BusinessException处理器] http状态码:{exception.http_status}, 业务状态码:{exception.code}, 错误消息:{exception.message}")
+        f"[BizException处理器] http状态码:{exception.http_status}, 业务状态码:{exception.code}, 错误消息:{exception.message}")
 
     return JSONResponse(
         status_code=exception.http_status,

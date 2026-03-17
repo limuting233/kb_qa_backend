@@ -9,3 +9,13 @@ class CreateKBRequest(BaseModel):
     """
     model_config = ConfigDict(extra="forbid")
     name: str = Field(..., min_length=1, max_length=64, description="知识库名称")
+
+
+class BuildKBRequest(BaseModel):
+    """
+    构建知识库接口请求模型
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    kb_id: str = Field(...,description="知识库ID")

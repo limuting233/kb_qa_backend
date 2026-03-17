@@ -4,7 +4,7 @@ from fastapi import UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.enums import DocumentStatus, DocumentType
-from app.core.exceptions import StorageUploadException, BusinessException
+from app.core.exceptions import StorageUploadException, BizException
 from app.infra.storage.oss_client import upload_file_to_aliyun_oss
 from app.models.document import Document
 from app.repositories.document_repo import DocumentRepo

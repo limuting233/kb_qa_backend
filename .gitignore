@@ -16,3 +16,7 @@ __pycache__/
 # alembic 数据库迁移目录
 alembic/
 alembic.ini
+
+
+#
+.DS_Store

@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from app.api.deps import DBSessionDep, UserIdDep
 from app.models.knowledge_base import KnowledgeBase
-from app.schemas.knowledge_base import CreateKBRequest
+from app.schemas.knowledge_base import CreateKBRequest, BuildKBRequest
 from app.schemas.result import Result
 from app.services.knowledge_base_service import KnowledgeBaseService
 
@@ -43,3 +43,16 @@ async def create_kb(request: CreateKBRequest, user_id: UserIdDep, db: DBSessionD
 
     # 返回标准成功响应。
     return Result.success()
+
+
+@router.post("/build")
+async def build_kb(request: BuildKBRequest, user_id: UserIdDep, db: DBSessionDep):
+    """
+    构建知识库接口。
+    :param request:
+    :param user_id:
+    :param db:
+    :return:
+    """
+    kb_service = KnowledgeBaseService(db=db)
+    await kb_service.build_kb(request.kb_id, user_id)

@@ -4,7 +4,7 @@ from typing import Any
 from sqlalchemy import String, BIGINT, SMALLINT
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.core.enums import KBStatus, KBVisibility
+from app.core.enums import KBStatus, KBVisibility, KBAvailability
 from app.models.base import Base
 
 
@@ -22,11 +22,15 @@ class KnowledgeBase(Base):
 
     description: Mapped[str | None] = mapped_column(String(1024), nullable=True, default=None, comment="知识库的描述")
 
-    status: Mapped[int] = mapped_column(SMALLINT, nullable=False, index=True, default=KBStatus.ACTIVE.value,
+    status: Mapped[int] = mapped_column(SMALLINT, nullable=False, index=True, default=KBStatus.UNBUILT.value,
                                         comment="知识库状态")
 
     visibility: Mapped[int] = mapped_column(SMALLINT, nullable=False, index=True, default=KBVisibility.PRIVATE.value,
                                             comment="知识库的可见性")
+
+    availability: Mapped[int] = mapped_column(SMALLINT, nullable=False, index=True,
+                                              default=KBAvailability.ENABLED.value, comment="知识库是否可用")
+
     doc_count: Mapped[int] = mapped_column(BIGINT, nullable=False, default=0, comment="文档数量冗余")
     chunk_count: Mapped[int] = mapped_column(BIGINT, nullable=False, default=0, comment="分块数量冗余")
 

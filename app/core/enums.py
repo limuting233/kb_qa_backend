@@ -34,10 +34,19 @@ class KBStatus(IntEnum):
     知识库状态的枚举类
     """
 
-    ACTIVE = 1  # 可用
+    UNBUILT = 1  # 未构建
     BUILDING = 2  # 构建中
-    FAILED = 3  # 失败
-    DISABLED = 4  # 禁用
+    READY = 3  # 索引可用
+    BUILD_FAILED = 4  # 索引构建失败
+
+
+class KBAvailability(IntEnum):
+    """
+    知识库是否可用的枚举类
+    """
+    ENABLED = 1
+    DISABLED = 2
+
 
 
 class KBVisibility(IntEnum):
